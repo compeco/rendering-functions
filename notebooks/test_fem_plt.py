@@ -18,7 +18,7 @@ def getTestMeshData():
     u = vertices[:,0]**2
     return vertices, elements, u
 
-def compare_images(expected,actual,tol):
+def compare_images(expected,actual,tol=13):
     """
     Do a diff of the image files
     """
@@ -34,7 +34,7 @@ def compare_images(expected,actual,tol):
                 'image does not exist: %s' % expected)
         if err:
             raise ImageComparisonFailure(
-                """images not close: {actual}s vs. {expected}s
+                """images not close: {actual} vs. {expected}
 RMS = {rms}.3f)
 See {diff}""".format(**err))
     except ImageComparisonFailure:
@@ -54,7 +54,7 @@ def test_contourf_c0p1():
     actual = os.path.join(my_dir,"contourf_c0p1.png")
     expected = os.path.join(my_dir,"test_images","contourf_c0p1.png")
     plt.savefig(actual)
-    compare_images(expected,actual,tol=1.0e-3)
+    compare_images(expected,actual)
 
 if __name__ == '__main__':
     import nose
