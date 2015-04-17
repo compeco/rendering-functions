@@ -5,6 +5,8 @@ import os
 from nose.tools import ok_ as ok
 from nose.tools import eq_ as eq
 import numpy as  np
+import matplotlib
+matplotlib.use('agg')
 import fem_plt
 
 def getTestMeshData():
@@ -16,7 +18,7 @@ def getTestMeshData():
     u = vertices[:,0]**2
     return vertices, elements, u
 
-def compare_images(expected,actual,tol):
+def compare_images(expected,actual,tol=13):
     """
     Do a diff of the image files
     """
@@ -32,7 +34,7 @@ def compare_images(expected,actual,tol):
                 'image does not exist: %s' % expected)
         if err:
             raise ImageComparisonFailure(
-                """images not close: {actual}s vs. {expected}s
+                """images not close: {actual} vs. {expected}
 RMS = {rms}.3f)
 See {diff}""".format(**err))
     except ImageComparisonFailure:
@@ -48,10 +50,11 @@ def test_contourf_c0p1():
     fem_plt.contourf_c0p1(ax,vertices,elements,u)
     #uncomment this  to generate an image with only the diff "IMAGE ERROR"
     #ax.annotate('IMAGE ERROR', fontsize=22,xy=(0.5, 1.), xytext=(0.5,1.))
-    actual = "contourf_c0p1.png"
-    expected = os.path.join("test_images",actual)
+    my_dir = os.path.dirname(os.path.realpath(__file__))
+    actual = os.path.join(my_dir,"contourf_c0p1.png")
+    expected = os.path.join(my_dir,"test_images","contourf_c0p1.png")
     plt.savefig(actual)
-    compare_images(expected,actual,tol=1.0e-3)
+    compare_images(expected,actual)
 
 if __name__ == '__main__':
     import nose
