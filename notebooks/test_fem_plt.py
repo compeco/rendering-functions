@@ -48,8 +48,9 @@ def test_contourf_c0p1():
     fem_plt.contourf_c0p1(ax,vertices,elements,u)
     #uncomment this  to generate an image with only the diff "IMAGE ERROR"
     #ax.annotate('IMAGE ERROR', fontsize=22,xy=(0.5, 1.), xytext=(0.5,1.))
-    actual = "contourf_c0p1.png"
-    expected = os.path.join("test_images",actual)
+    my_dir = os.path.dirname(os.path.realpath(__file__))
+    actual = os.path.join(my_dir,"contourf_c0p1.png")
+    expected = os.path.join(my_dir,"test_images","contourf_c0p1.png")
     plt.savefig(actual)
     compare_images(expected,actual,tol=1.0e-3)
 
