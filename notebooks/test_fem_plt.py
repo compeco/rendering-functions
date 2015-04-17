@@ -5,6 +5,8 @@ import os
 from nose.tools import ok_ as ok
 from nose.tools import eq_ as eq
 import numpy as  np
+import matplotlib
+matplotlib.use('agg')
 import fem_plt
 
 def getTestMeshData():
